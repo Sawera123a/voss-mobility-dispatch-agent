@@ -1,0 +1,25 @@
+# Environment variables (contains database password - never commit this)
+.env
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Python package build artifacts
+*.egg-info/
+build/
+dist/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

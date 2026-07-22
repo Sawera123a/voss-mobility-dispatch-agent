@@ -1,0 +1,8 @@
+Voss Mobility - Demand Prediction Model Evaluation
+==================================================
+Test set size: 864 rows
+R^2 Score: 0.8883
+MAE: 3.32 rides
+RMSE: 4.11 rides
+Training R^2 (reference): 0.9066
+Train/Test R^2 gap: 0.0183

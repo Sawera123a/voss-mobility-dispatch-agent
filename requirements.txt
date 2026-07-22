@@ -1,0 +1,21 @@
+# Voss Mobility - Autonomous Ride Dispatch Agent
+# Python dependencies. Install with: pip install -r requirements.txt
+
+# Data & ML
+pandas
+numpy
+scikit-learn
+lightgbm
+joblib
+
+# AI Agents
+crewai
+crewai-tools
+
+# Backend / API
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-dotenv
+pydantic

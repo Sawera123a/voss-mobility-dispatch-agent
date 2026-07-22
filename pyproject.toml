@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voss-dispatch"
+version = "1.0.0"
+description = "Voss Mobility - Autonomous Ride Dispatch Agent. Predicts ride demand and plans vehicle repositioning using CrewAI agents and a local LLM."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "lightgbm",
+    "joblib",
+    "crewai",
+    "crewai-tools",
+    "fastapi",
+    "uvicorn[standard]",
+    "sqlalchemy",
+    "psycopg2-binary",
+    "python-dotenv",
+    "pydantic",
+]
+
+[project.scripts]
+# After `pip install -e .`, running `voss-dispatch` in a terminal
+# starts the whole service (API + pre-built frontend) with no
+# Docker, no containers - just a plain installed Python command.
+voss-dispatch = "run_service:main"
+
+[tool.setuptools]
+py-modules = ["run_service", "database", "db_models"]
+
+[tool.setuptools.packages.find]
+include = ["api*", "agents*"]
