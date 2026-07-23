@@ -2,21 +2,21 @@ Voss Mobility - Autonomous Dispatch Plan (Validated)
 ==================================================
 
 Input forecast summary:
-Zone_A: avg predicted demand next 3 hrs = 40.4, currently available vehicles = 16, gap = 24.4
-Zone_B: avg predicted demand next 3 hrs = 31.9, currently available vehicles = 24, gap = 7.9
-Zone_C: avg predicted demand next 3 hrs = 45.8, currently available vehicles = 8, gap = 37.8
-Zone_D: avg predicted demand next 3 hrs = 26.7, currently available vehicles = 8, gap = 18.7
-Zone_E: avg predicted demand next 3 hrs = 36.6, currently available vehicles = 12, gap = 24.6
-Zone_F: avg predicted demand next 3 hrs = 27.5, currently available vehicles = 17, gap = 10.5
+Zone_A: avg predicted demand next 3 hrs = 48.5, currently available vehicles = 17, gap = 31.5
+Zone_B: avg predicted demand next 3 hrs = 40.9, currently available vehicles = 14, gap = 26.9
+Zone_C: avg predicted demand next 3 hrs = 53.5, currently available vehicles = 13, gap = 40.5
+Zone_D: avg predicted demand next 3 hrs = 34.3, currently available vehicles = 5, gap = 29.3
+Zone_E: avg predicted demand next 3 hrs = 44.6, currently available vehicles = 20, gap = 24.6
+Zone_F: avg predicted demand next 3 hrs = 35.5, currently available vehicles = 19, gap = 16.5
 
 No valid moves were produced by the agent.
 
 REJECTED MOVES (failed validation - not executed):
-- Move 13 from Zone_D to Zone_C: REJECTED (Zone_D has no surplus (gap=18.7))
-- Move 6 from Zone_B to Zone_E: REJECTED (Zone_B has no surplus (gap=7.9))
-- Move 5 from Zone_F to Zone_A: REJECTED (Zone_F has no surplus (gap=10.5))
-- Move 3 from Zone_G to Zone_E: REJECTED (Unknown zone 'Zone_G')
-- Move 2 from Zone_H to Zone_A: REJECTED (Unknown zone 'Zone_H')
+- Move 15 from Zone_F to Zone_C: REJECTED (Zone_F has no surplus (gap=16.5))
+- Move 9 from Zone_E to Zone_C: REJECTED (Zone_E has no surplus (gap=24.6))
+- Move 4 from Zone_F to Zone_A: REJECTED (Zone_F has no surplus (gap=16.5))
+- Move 5 from Zone_E to Zone_D: REJECTED (Zone_E has no surplus (gap=24.6))
+- Move 2 from Zone_F to Zone_A: REJECTED (Zone_F has no surplus (gap=16.5))
 
 --- Raw (unvalidated) agent output, for reference ---
-{"moves":[{"vehicles":13,"from_zone":"Zone_D","to_zone":"Zone_C","reason":"To address the most severe vehicle shortage in Zone_C (gap of 37.8)"},{"vehicles":6,"from_zone":"Zone_B","to_zone":"Zone_E","reason":"To address the significant vehicle shortage in Zone_E (gap of 24.6)"},{"vehicles":5,"from_zone":"Zone_F","to_zone":"Zone_A","reason":"To address the substantial vehicle shortage in Zone_A (gap of 24.4)"},{"vehicles":3,"from_zone":"Zone_G","to_zone":"Zone_E","reason":"To further address the vehicle shortage in Zone_E (gap of 24.6)"},{"vehicles":2,"from_zone":"Zone_H","to_zone":"Zone_A","reason":"To partially address the vehicle shortage in Zone_A (gap of 24.4)"}]}
+{"moves":[{"vehicles":15,"from_zone":"Zone_F","to_zone":"Zone_C","reason":"Addressing the most severe demand gap in Zone_C"},{"vehicles":9,"from_zone":"Zone_E","to_zone":"Zone_C","reason":"Additional vehicles to fulfill Zone_C's high demand"},{"vehicles":4,"from_zone":"Zone_F","to_zone":"Zone_A","reason":"Addressing the demand gap in prioritized zone, Zone_A"},{"vehicles":5,"from_zone":"Zone_E","to_zone":"Zone_D","reason":"Filling the gap in Zone_D, the other prioritized zone."},{"vehicles":2,"from_zone":"Zone_F","to_zone":"Zone_A","reason":"Continuation of reallocation to minimize operational impact"}]}

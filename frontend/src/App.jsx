@@ -90,27 +90,36 @@ function ZoneGauge({ zone, demand, available }) {
   );
 }
 
+function shortLabel(zoneKey) {
+  const name = ZONE_DISPLAY_NAMES[zoneKey] || zoneKey.replace("Zone_", "Zone ");
+  return name.split(" ")[0]; 
+}
+
+function humanizeReason(text) {
+  if (!text) return text;
+  return text.replace(/Zone_([A-F])/g, (_, letter) => {
+    const fullName = ZONE_DISPLAY_NAMES[`Zone_${letter}`];
+    return fullName || `Zone ${letter}`;
+  });
+}
+
 function MoveRow({ move, approved }) {
   return (
-    <div
-      className={`move-row ${approved ? "move-row--approved" : "move-row--rejected"}`}
-    >
+    <div className={`move-row ${approved ? "move-row--approved" : "move-row--rejected"}`}>
       <div className="move-row__icon">
         {approved ? <CircleCheck size={16} /> : <CircleX size={16} />}
       </div>
       <div className="move-row__body">
         <div className="move-row__path">
           <span className="move-row__vehicles">{move.vehicles}</span>
-          <span className="move-row__from">
-            {move.from_zone.replace("Zone_", "")}
-          </span>
+          <span className="move-row__from">{shortLabel(move.from_zone)}</span>
           <ArrowRight size={14} className="move-row__arrow" />
           <span className="move-row__to">
-            {approved ? move.to_zone.replace("Zone_", "") : "\u2014"}
+            {approved ? shortLabel(move.to_zone) : "\u2014"}
           </span>
         </div>
         <div className="move-row__reason">
-          {approved ? move.reason : move.reason_rejected}
+          {humanizeReason(approved ? move.reason : move.reason_rejected)}
         </div>
       </div>
     </div>
