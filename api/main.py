@@ -14,6 +14,8 @@ from database import engine, Base, get_db
 import db_models as models
 from agents.dispatch_crew import build_forecast, run_dispatch_cycle, save_report, ZONE_MAPPING, get_current_availability
 
+import httpx
+
 # Create tables in PostgreSQL if they don't exist yet
 Base.metadata.create_all(bind=engine)
 
@@ -30,6 +32,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+TRAFIKLAB_API_KEY = os.getenv("TRAFIKLAB_API_KEY")
+STOCKHOLM_CENTRAL_STOP_ID = "740000001" 
 
 FRONTEND_DIST = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "frontend", "dist")
@@ -64,6 +69,48 @@ def get_demand_forecast(db: Session = Depends(get_db)):
         "forecast": forecast_df.to_dict(orient="records"),
         "availability": get_current_availability(),
     }
+
+
+@app.get("/transit-status")
+def get_transit_status():
+    """
+    Returns upcoming public transit departures from Stockholm Central,
+    via Trafiklab's ResRobot API. Shown on the dashboard purely as
+    real-world context alongside dispatch decisions - it does NOT feed
+    into the demand model, the AI agents, or the guardrail. If no API
+    key is configured or the request fails, returns available=False
+    instead of breaking the dashboard.
+    """
+    if not TRAFIKLAB_API_KEY:
+        return {"available": False, "departures": []}
+    try:
+        response = httpx.get(
+            "https://api.resrobot.se/v2.1/departureBoard",
+            params={
+                "id": STOCKHOLM_CENTRAL_STOP_ID,
+                "format": "json",
+                "accessId": TRAFIKLAB_API_KEY,
+            },
+            timeout=5,
+        )
+        response.raise_for_status()
+        data = response.json()
+    except Exception:
+        return {"available": False, "departures": []}
+    departures = []
+    for d in data.get("Departure", [])[:8]:
+        scheduled_time = d.get("time", "")
+        rt_time = d.get("rtTime")
+        delayed = bool(rt_time and rt_time != scheduled_time)
+        departures.append({
+            "line": d.get("name", "Unknown"),
+            "stop": d.get("stop", ""),
+            "direction": d.get("direction", ""),
+            "time": scheduled_time,
+            "rt_time": rt_time,
+            "delayed": delayed,
+        })
+    return {"available": True, "departures": departures}
 
 
 @app.post("/dispatch-plan/run")

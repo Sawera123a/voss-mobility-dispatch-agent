@@ -2,21 +2,20 @@ Voss Mobility - Autonomous Dispatch Plan (Validated)
 ==================================================
 
 Input forecast summary:
-Zone_A: avg predicted demand next 3 hrs = 25.0, currently available vehicles = 12, gap = 13.0
-Zone_B: avg predicted demand next 3 hrs = 15.4, currently available vehicles = 12, gap = 3.4
-Zone_C: avg predicted demand next 3 hrs = 31.0, currently available vehicles = 11, gap = 20.0
-Zone_D: avg predicted demand next 3 hrs = 9.8, currently available vehicles = 3, gap = 6.8
-Zone_E: avg predicted demand next 3 hrs = 20.3, currently available vehicles = 7, gap = 13.3
-Zone_F: avg predicted demand next 3 hrs = 11.7, currently available vehicles = 22, gap = -10.3
+Zone_A: avg predicted demand next 3 hrs = 25.3, currently available vehicles = 15, gap = 10.3
+Zone_B: avg predicted demand next 3 hrs = 15.6, currently available vehicles = 24, gap = -8.4
+Zone_C: avg predicted demand next 3 hrs = 29.5, currently available vehicles = 15, gap = 14.5
+Zone_D: avg predicted demand next 3 hrs = 10.2, currently available vehicles = 6, gap = 4.2
+Zone_E: avg predicted demand next 3 hrs = 20.5, currently available vehicles = 20, gap = 0.5
+Zone_F: avg predicted demand next 3 hrs = 11.5, currently available vehicles = 27, gap = -15.5
 
 APPROVED MOVES:
-1. Move 5 vehicles from Zone_F to Zone_C - Address the demand gap of Zone_C with surplus vehicles from Zone_F
-2. Move 4 vehicles from Zone_F to Zone_E - Supply additional vehicles to Zone_E due to its demand gap
+1. Move 5 vehicles from Zone_F to Zone_C - Address the extreme vehicle shortage in Zone_C
+2. Move 4 vehicles from Zone_F to Zone_A - Help alleviate the substantial shortage in Zone_A
+3. Move 2 vehicles from Zone_B to Zone_D - Allocate available resources from a surplus zone to Zone_D with a positive demand-vehicle gap
 
 REJECTED MOVES (failed validation - not executed):
-- Move 3 from Zone_F to Zone_A: REJECTED (Zone_F only has 1.3 vehicles of real surplus left)
-- Move 2 from Zone_C to Zone_E: REJECTED (Zone_C has no surplus (gap=20.0))
-- Move 1 from Zone_A to Zone_C: REJECTED (Zone_A has no surplus (gap=13.0))
+- Move 4 from Zone_F to Zone_B: REJECTED (Zone_B does not have a real shortage (gap=-8.4) - sending vehicles there would not help)
 
 --- Raw (unvalidated) agent output, for reference ---
-{"moves":[{"vehicles":5,"from_zone":"Zone_F","to_zone":"Zone_C","reason":"Address the demand gap of Zone_C with surplus vehicles from Zone_F"},{"vehicles":4,"from_zone":"Zone_F","to_zone":"Zone_E","reason":"Supply additional vehicles to Zone_E due to its demand gap"},{"vehicles":3,"from_zone":"Zone_F","to_zone":"Zone_A","reason":"Deploy surplus vehicles from Zone_F to Zone_A to reduce the demand gap"},{"vehicles":2,"from_zone":"Zone_C","to_zone":"Zone_E","reason":"Alleviate the remaining demand gap in Zone_E using some excess vehicles from Zone_C"},{"vehicles":1,"from_zone":"Zone_A","to_zone":"Zone_C","reason":"Balance the vehicles count between Zone_A and Zone_C to accommodate the demand gap in Zone_C"}]}
+{"moves":[{"vehicles":5,"from_zone":"Zone_F","to_zone":"Zone_C","reason":"Address the extreme vehicle shortage in Zone_C"},{"vehicles":4,"from_zone":"Zone_F","to_zone":"Zone_A","reason":"Help alleviate the substantial shortage in Zone_A"},{"vehicles":2,"from_zone":"Zone_B","to_zone":"Zone_D","reason":"Allocate available resources from a surplus zone to Zone_D with a positive demand-vehicle gap"},{"vehicles":4,"from_zone":"Zone_F","to_zone":"Zone_B","reason":"Move some vehicles from the surplus to help balance excess capacity and reduce idle resources"}]}
