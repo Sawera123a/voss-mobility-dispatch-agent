@@ -16,6 +16,15 @@ const API_BASE = "http://127.0.0.1:8000";
 
 const ZONES = ["Zone_A", "Zone_B", "Zone_C", "Zone_D", "Zone_E", "Zone_F"];
 
+const ZONE_DISPLAY_NAMES = {
+  Zone_A: "Södermalm",
+  Zone_B: "Östermalm",
+  Zone_C: "Norrmalm (City Center)",
+  Zone_D: "Kungsholmen",
+  Zone_E: "Vasastan",
+  Zone_F: "Gamla Stan",
+};
+
 function useClock() {
   const [time, setTime] = useState(new Date());
   useEffect(() => {
@@ -43,7 +52,7 @@ function ZoneGauge({ zone, demand, available }) {
     <div className={`zone-card zone-card--${status}`}>
       <div className="zone-card__head">
         <span className="zone-card__name">
-          {zone.replace("Zone_", "Zone ")}
+          {ZONE_DISPLAY_NAMES[zone] || zone.replace("Zone_", "Zone ")}
         </span>
         <span className={`zone-card__badge zone-card__badge--${status}`}>
           {status === "shortage"
@@ -304,7 +313,7 @@ export default function App() {
         <section className="console__section">
           <div className="console__section-head">
             <h2>
-              Zone Status{" "}
+              Stockholm Zone Status{" "}
               <span className="console__section-sub">
                 next 3 hours, predicted
               </span>
